@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Sans, Lora } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider"
+import { ClerkProvider } from "@clerk/nextjs";
+ import { dark } from '@clerk/ui/themes'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const lora =Lora({
+  subsets : ["latin"],
+  weight : ['400','500'],
+  style : ["normal","italic"],
+  variable : "--font-serif"
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+
+const dmSans =DM_Sans({
+  subsets : ["latin"],
+  weight : ['300','400','500','600'],
+  variable : "--font-sans"
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,11 +30,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider appearance={{
+      theme : dark,
+    }}>
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className={`${lora.variable} ${dmSans.variable} font-sans`}>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="min-h-screen">
+              {children}
+            </main>
+          </ThemeProvider>
+        {/* {Header} */}
+        {/* Footer */}
+      </body>
     </html>
+    </ClerkProvider>
   );
 }
