@@ -4,7 +4,9 @@ import Image from "next/image";
 export default function Home() {
   return (
    <div>
-      <Button>Hello form button</Button>
+      <section className="pt-28 sm:pt-32">
+        <Button>Hello form button</Button>
+      </section>
    </div>
   );
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { ClerkProvider } from "@clerk/nextjs";
  import { dark } from '@clerk/ui/themes'
+import Header from "@/components/Header";
 
 const lora =Lora({
   subsets : ["latin"],
@@ -45,6 +46,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <main className="min-h-screen">
+              <Header/>
               {children}
             </main>
           </ThemeProvider>
