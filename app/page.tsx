@@ -1,6 +1,6 @@
 import { CodeDemo } from "@/components/demo-components-animate-code";
 import { StarsBackgroundDemo } from "@/components/demo-components-backgrounds-stars";
-import { GoldTitle, GrayTitle, SectionLabel } from "@/components/reusables";
+import { GoldTitle, GrayTitle, SectionHeading, SectionLabel } from "@/components/reusables";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AVATARS, LOGOS } from "@/lib/data";
@@ -87,6 +87,21 @@ export default function Home() {
                 />
               ))}
           </div>
+      </section>
+      <section className="relative z-10 py-28 max-w-5xl mx-auto px-6">
+
+        <div className="text-center mb-16 text-[clamp(2rem,4vw,3rem)] leading-[1.1] tracking-[-0.025em]">
+              <SectionLabel>Features</SectionLabel>
+              <SectionHeading
+                gray = "Everything you need,"
+                gold = "nothing you don't"
+              />                
+        </div>
+        <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-12 md:col-span-7">
+                  
+              </div>
+        </div>
       </section>
    </div>
   );

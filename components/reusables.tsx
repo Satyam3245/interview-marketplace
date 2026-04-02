@@ -3,6 +3,10 @@ import React, { ReactNode } from 'react';
 interface Props {
     children : ReactNode
 }
+interface Props1 {
+    gray : ReactNode,
+    gold : ReactNode
+}
 export const GrayTitle = ({children}:Props)=>{
     return <span className='bg-linear-to-br from-stone-100 via-stone-300 to-stone-500 bg-clip-text text-transparent'>
         {children}
@@ -21,4 +25,11 @@ export const SectionLabel = ({children}:Props)=>{
         <span className='w-4 h-px bg-amber-400'/>
         {children}
     </p>
+}
+
+export const SectionHeading = ({gray,gold}:Props1)=>{
+    return <h2 className='font-serif'>
+        <GrayTitle>{gray}</GrayTitle>
+        <GoldTitle>{gold}</GoldTitle>
+    </h2>
 }
