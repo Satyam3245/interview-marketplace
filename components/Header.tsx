@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const Header = ()=>{
-    return <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-10 py-3 border-b border-white">
+    return <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-10 py-3 border-b border-white bg-black">
         <Link
          href={'/'}
         >
