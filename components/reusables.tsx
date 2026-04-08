@@ -21,15 +21,16 @@ export const GoldTitle = ({children}:Props)=>{
 
 
 export const SectionLabel = ({children}:Props)=>{
-    return <p className='inline-flex items-center gap-2 tet-xs font-semibold bg-amber-400 tracking-[0.14em] upper'>
+    return <p className='inline-flex items-center gap-2 tet-xs font-semibold text-amber-400 tracking-[0.14em] uppercase mb-4'>
         <span className='w-4 h-px bg-amber-400'/>
         {children}
     </p>
 }
 
 export const SectionHeading = ({gray,gold}:Props1)=>{
-    return <h2 className='font-serif'>
+    return <h2 className='font-serif leading-[1.1] tracking-[-0.025em]  text-[clamp(2rem,4vw,3rem)]'>
         <GrayTitle>{gray}</GrayTitle>
+        <br />
         <GoldTitle>{gold}</GoldTitle>
     </h2>
 }

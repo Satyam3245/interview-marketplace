@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const Header = ()=>{
-    return <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-10 py-3 border-b border-white bg-black">
+    return <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-10 py-3 border-b border-white/7 backdrop-blur-xl ">
         <Link
          href={'/'}
         >
@@ -22,7 +22,7 @@ const Header = ()=>{
                     <Button variant="ghost">Sign In</Button>
                 </SignInButton>
                 <SignUpButton>
-                    <Button variant="ghost">Get Started</Button>
+                    <Button variant="gold">Get started →</Button>
                 </SignUpButton>
             </Show>
             <Show when="signed-in">
