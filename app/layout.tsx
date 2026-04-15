@@ -6,7 +6,6 @@ import { ClerkProvider } from "@clerk/nextjs";
  import { dark } from '@clerk/ui/themes'
 import Header from "@/components/Header";
 import Footer from "@/components/footer";
-
 const lora =Lora({
   subsets : ["latin"],
   weight : ['400','500'],
