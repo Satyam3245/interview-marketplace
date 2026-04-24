@@ -178,12 +178,12 @@ export const CATEGORY_LABEL = {
 
 // onboarding
 export const YEARS_OPTIONS = [
-  { value: 1, label: "1 yr" },
-  { value: 2, label: "2 yrs" },
-  { value: 3, label: "3 yrs" },
-  { value: 5, label: "5 yrs" },
-  { value: 7, label: "7 yrs" },
-  { value: 10, label: "10+ yrs" },
+  { value: '1', label: "1 yr" },
+  { value: '2', label: "2 yrs" },
+  { value: '3', label: "3 yrs" },
+  { value: '5', label: "5 yrs" },
+  { value: '7', label: "7 yrs" },
+  { value: '10', label: "10+ yrs" },
 ];
 
 export const ONBOARDING_ROLES = [
