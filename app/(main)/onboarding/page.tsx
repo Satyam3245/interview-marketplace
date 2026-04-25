@@ -3,6 +3,7 @@ import { GoldTitle, GrayTitle, SectionLabel } from "@/components/reusables";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { CATEGORIES, ONBOARDING_ROLES, YEARS_OPTIONS } from "@/lib/data";
 import { title } from "process";
 import { useState } from "react";
@@ -16,6 +17,20 @@ export default function OnBoardingPage(){
         bio : '',
         categories : []
     });
+
+    const handleSubmit = ()=>{
+
+    };
+
+    const toggleCategory = (val:any) => {
+        setForm((prev) => ({
+        ...prev,
+        categories: prev.categories.includes(val)
+            ? prev.categories.filter((c) => c !== val)
+            : [...prev.categories, val],
+        }));
+    };
+
     return <div className="min-h-screen bg-black px-6 py-24 flex flex-col items-center">
 
         <div className="w-full max-w-2xl">
@@ -129,14 +144,43 @@ export default function OnBoardingPage(){
                             <div className="flex flex-wrap gap-2">
                                 {CATEGORIES.map((c)=>{
                                     if (!c?.value) return null;
-                                    // const active = form.categories.includes(c.value);
-                                    return <button>
-
-                                    </button>
+                                    const active = form.categories.includes(c.value);
+                                    return (
+                                        <button
+                                            key={c.value}
+                                            type="button"
+                                            onClick={() => toggleCategory(c.value)}
+                                            className={`text-xs px-4 py-2 rounded-lg border ${
+                                            active
+                                                ? "border-amber-400/40 bg-amber-400/10 text-amber-400"
+                                                : "border-white/10 text-stone-500"
+                                            }`}
+                                        >
+                                            {c.label}
+                                        </button>
+                                    );
                                 })}
                             </div>
+                            <Textarea
+                                rows={4}
+                                maxLength={300}
+                                placeholder="Tell interviewees about your background, what you specialise in, and what they can expect from a session with you."
+                                value={form.bio}
+                                onChange={(e) =>
+                                    setForm((p) => ({ ...p, bio: e.target.value }))
+                                }
+                            />
                         </div>
                     )}
+                    <Button
+                        variant={"gold"}
+                        size={"hero"}
+                        className="w-full"
+                        disabled={!canSumbit || loading}
+                        onClick={handleSubmit}
+                    >
+                        
+                    </Button>
                 </div>
             )}
         </div>
