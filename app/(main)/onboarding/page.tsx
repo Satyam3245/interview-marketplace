@@ -1,26 +1,70 @@
 "use client"
+import { completeOnboarding } from "@/actions/onBoarding";
 import { GoldTitle, GrayTitle, SectionLabel } from "@/components/reusables";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import useFetch from "@/hooks/use-fetch";
 import { CATEGORIES, ONBOARDING_ROLES, YEARS_OPTIONS } from "@/lib/data";
+import { useRouter } from "next/navigation";
 import { title } from "process";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+
+interface InterviewerData {
+    title : string,
+    company : string,
+    yearsExp : string,
+    bio : string,
+    categories : string[]
+}
+
 
 export default function OnBoardingPage(){
     const [role, setRole] = useState<string|null>(null);
-    const [form,setForm] = useState({
+    const [form,setForm] = useState<InterviewerData>({
         title:'',
         company : '',
         yearsExp : '',
         bio : '',
         categories : []
     });
+    const router = useRouter();
+    const {data,loading,error,fn:onboardingFn} = useFetch(completeOnboarding);
+
+    useEffect(()=>{
+        if(data && !loading){
+            router.push(role==="INTERVIEWER"?"/dashboard":"/explore");
+        }
+    },[data,loading]);
+
+    const isInterviewerValid =
+        form.title.trim() &&
+        form.company.trim() &&
+        form.yearsExp &&
+        form.bio.trim() &&
+        form.categories.length > 0;
+
+    const canSubmit = role == "INTERVIEWEE" || ( role=="INTERVIEWER" && isInterviewerValid);
 
     const handleSubmit = ()=>{
+        if (!canSubmit) return;
+        let additionalData = {};
 
-    };
+        if (role === "INTERVIEWER") {
+            additionalData = {
+            title: form.title,
+            company: form.company,
+            yearsExp: Number(form.yearsExp),
+            bio: form.bio,
+            categories: form.categories,
+            };
+            onboardingFn(role, additionalData);
+        } else {
+            onboardingFn(role);
+        }
+            };
 
     const toggleCategory = (val:any) => {
         setForm((prev) => ({
@@ -176,10 +220,15 @@ export default function OnBoardingPage(){
                         variant={"gold"}
                         size={"hero"}
                         className="w-full"
-                        disabled={!canSumbit || loading}
+                        disabled={!canSubmit || loading}
                         onClick={handleSubmit}
                     >
-                        
+                        {loading
+                            ? "Setting up your profile"
+                            : role === "INTERVIEWER"
+                            ? "Create interviewer profile"
+                            : "Explore Interview"
+                        }
                     </Button>
                 </div>
             )}
