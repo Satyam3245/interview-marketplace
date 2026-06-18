@@ -4,6 +4,15 @@ import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { request } from "@arcjet/next";
 import { StreamClient } from "@stream-io/node-sdk";
+import { revalidatePath } from "next/cache";
+import { checkRateLimit, createRateLimiter } from "@/lib/arcject";
+
+const bookingLimiter = createRateLimiter({
+  refillRate: 2,
+  interval: "1h",
+  capacity: 5,
+});
+
 
 export const getInterviewProfile = async (interviewerId : string)=>{
     try {
@@ -45,8 +54,8 @@ export const bookSlot = async ({ interviewerId, startTime, endTime } : any) =>{
     if(!user) throw new Error("Unauthorized");
     
     const req = await request();
-    // const rateLimitError = await
-
+    const rateLimiterError  = await checkRateLimit(bookingLimiter, req, user.id)
+    if (rateLimiterError) throw new Error(rateLimiterError);
 
 
     const [dbUser, interviewer] = await Promise.all([
@@ -129,5 +138,50 @@ export const bookSlot = async ({ interviewerId, startTime, endTime } : any) =>{
         throw new Error("Failed to create video call. Please try again.");
     }
 
+    try {
+        const booking = await prisma.$transaction(async (tx) => {
+        const newBooking = await tx.booking.create({
+            data: {
+            intervieweeId: dbUser.id,
+            interviewerId,
+            startTime: new Date(startTime),
+            endTime: new Date(endTime),
+            status: "SCHEDULED",
+            creditsCharged: credits,
+            streamCallId,
+            },
+        });
+
+        await tx.creditTransaction.create({
+            data: {
+            userId: dbUser.id,
+            amount: -credits,
+            type: "BOOKING_DEDUCTION",
+            bookingId: newBooking.id,
+            },
+        });
+
+        await tx.user.update({
+            where: { id: dbUser.id },
+            data: { credits: { decrement: credits } },
+        });
+
+        await tx.user.update({
+            where: { id: interviewerId },
+            data: { creditBalance: { increment: credits } },
+        });
+
+        return newBooking;
+        });
+        revalidatePath(`/interviewers/${interviewerId}`);
+        revalidatePath("/dashboard");
+
+    return { success: true, bookingId: booking.id, streamCallId };
+    } catch (error) {
+        console.error("bookSlot transaction failed:", error);
+        throw new Error("Booking failed. Please try again.");
+    }
     
+
+
 }
