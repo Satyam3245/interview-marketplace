@@ -15,13 +15,10 @@ const PLAN_CREDITS = {
 };
 
 const shouldAllocateCredits = (dbUser : any, currentPlan : any) => {
-  // Always allocate if plan changed
   if (dbUser.currentPlan !== currentPlan) return true;
 
-  // Allocate if never allocated before
   if (!dbUser.creditsLastAllocatedAt) return true;
 
-  // Allocate if it's a new calendar month since last allocation
   const now = new Date();
   const last = new Date(dbUser.creditsLastAllocatedAt);
   const isNewMonth =
@@ -47,7 +44,6 @@ export const checkUser = async ()=>{
         if(loggedInUser){
             if (loggedInUser.role === "INTERVIEWER") return loggedInUser;
             if (shouldAllocateCredits(loggedInUser, currentPlan)) {
-                // Roll forward any remaining credits from the previous period
                 const rolledCredits = credits + (loggedInUser.credits ?? 0);
 
                 return await prisma.user.update({
