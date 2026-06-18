@@ -50,21 +50,19 @@ export default function OnBoardingPage(){
 
     const handleSubmit = ()=>{
         if (!canSubmit) return;
-        let additionalData = {};
-
-        if (role === "INTERVIEWER") {
-            additionalData = {
+            const payload = {
+        role,
+        ...(role === "INTERVIEWER" && {
             title: form.title,
             company: form.company,
             yearsExp: Number(form.yearsExp),
             bio: form.bio,
             categories: form.categories,
-            };
-            onboardingFn(role, additionalData);
-        } else {
-            onboardingFn(role);
-        }
-            };
+        }),
+    };
+
+    onboardingFn(payload);
+    };
 
     const toggleCategory = (val:any) => {
         setForm((prev) => ({

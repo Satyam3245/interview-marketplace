@@ -4,10 +4,11 @@ import { useState } from "react"
 import { toast } from "sonner";
 
 const useFetch = (cb:any)=>{
-    const [data,setData] = useState(undefined);
+    const [data,setData] = useState("");
     const [loading,setLoading] = useState<boolean>(false);
     const [error,setError] = useState<Error | null>(null);
     const fn = async (...args:any)=>{
+        console.log(data)
         setLoading(true);
         setError(null);
         try {

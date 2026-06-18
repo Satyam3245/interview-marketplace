@@ -18,9 +18,9 @@ export const completeOnboarding = async (data:InterviewerData)=>{
     if(!user){
         throw new Error("Unauthorized")
     }
-
+    
     const { role, title, company, yearsExp, bio, categories } = data;
-
+    console.log(data)
     if(!role || !["INTERVIEWEE", "INTERVIEWER"].includes(role)){
         throw new Error("Invalid role");
     }
