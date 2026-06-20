@@ -7,9 +7,8 @@ import { Separator } from "@/components/ui/separator";
 import { CATEGORY_LABEL } from "@/lib/data";
 import { formatTime } from "@/lib/helper";
 
-
-export default function InterviewerCard({interviewer}:any){
-    const {
+export default function InterviewerCard({ interviewer }:any) {
+  const {
     id,
     name,
     imageUrl,
@@ -21,11 +20,9 @@ export default function InterviewerCard({interviewer}:any){
     creditRate,
     availabilities,
   } = interviewer;
-
-  
   const availability = availabilities?.[0];
-    
-   return (
+
+  return (
     <Card className="relative border border-white/10 hover:border-amber-400/20">
       <div className="absolute inset-0 bg-linear-to-br from-amber-400/5 via-transparent to-transparent pointer-events-none" />
 
@@ -71,15 +68,14 @@ export default function InterviewerCard({interviewer}:any){
         {/* Categories */}
         {categories?.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
-            {categories.slice(0, 4).map((cat:any) => {
-              const labelKey = cat as keyof typeof CATEGORY_LABEL;
-              return <span
+            {categories.slice(0, 4).map((cat:any) => (
+              <span
                 key={cat}
                 className="text-xs px-2.5 py-1 rounded-lg border border-amber-400/20 bg-amber-400/5 text-amber-400"
               >
-                {CATEGORY_LABEL[labelKey] ?? cat}
+                {CATEGORY_LABEL[cat] ?? cat}
               </span>
-                })}
+            ))}
             {categories.length > 4 && (
               <span className="text-xs px-2.5 py-1 rounded-lg border border-white/10 text-stone-600">
                 +{categories.length - 4} more
@@ -120,6 +116,5 @@ export default function InterviewerCard({interviewer}:any){
         </div>
       </CardContent>
     </Card>
-   );
-
+  );
 }

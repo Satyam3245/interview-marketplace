@@ -5,6 +5,7 @@ import Image from "next/image";
 import { checkUser } from "@/lib/checkUser";
 import { CalendarDays, Users } from "lucide-react";
 import RoleRedirect from "./roleredirect";
+import CreditButton from "./CreditButton";
 
 const Header = async ()=>{
     const user = await checkUser();
@@ -56,6 +57,17 @@ const Header = async ()=>{
                         </Button>
                     </>
                 )}
+                <CreditButton
+                    role={user?.role === "INTERVIEWER" ? "INTERVIEWER" : "INTERVIEWEE"}
+                    credits={
+                    (user?.role === "INTERVIEWER"
+                        ? user?.creditBalance
+                        : user?.credits) ?? 0
+                    }
+                />
+
+
+
 
                 <UserButton/>
             </Show>

@@ -165,7 +165,7 @@ export const CATEGORIES = [
   { value: "MOBILE", label: "Mobile" },
 ];
 
-export const CATEGORY_LABEL = {
+export const CATEGORY_LABEL : any = {
   FRONTEND: "Frontend",
   BACKEND: "Backend",
   FULLSTACK: "Full Stack",
@@ -202,20 +202,20 @@ export const ONBOARDING_ROLES = [
 ];
 
 // Appointment Card Data
-export const STATUS_STYLES = {
+export const STATUS_STYLES :any= {
   SCHEDULED: "border-blue-500/20 bg-blue-500/10 text-blue-400",
   COMPLETED: "border-green-500/20 bg-green-500/10 text-green-400",
   CANCELLED: "border-red-500/20 bg-red-500/10 text-red-400",
 };
 
-export const RATING_STYLES = {
+export const RATING_STYLES :any = {
   POOR: "ml-auto border-red-500/20 bg-red-500/10 text-red-400",
   AVERAGE: "ml-auto border-yellow-500/20 bg-yellow-500/10 text-yellow-400",
   GOOD: "ml-auto border-blue-500/20 bg-blue-500/10 text-blue-400",
   EXCELLENT: "ml-auto border-green-500/20 bg-green-500/10 text-green-400",
 };
 
-export const RATING_LABEL = {
+export const RATING_LABEL:any = {
   POOR: "Poor",
   AVERAGE: "Average",
   GOOD: "Good",
@@ -223,7 +223,7 @@ export const RATING_LABEL = {
 };
 
 // Feedback Modal
-export const RATING_CONFIG = {
+export const RATING_CONFIG :any = {
   POOR: {
     label: "Poor",
     emoji: "📉",

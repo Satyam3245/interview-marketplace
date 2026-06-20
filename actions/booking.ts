@@ -63,7 +63,7 @@ export const bookSlot = async ({ interviewerId, startTime, endTime } : any) =>{
         prisma.user.findUnique({ where: { id: interviewerId } }),
     ]);
 
-    if(!dbUser || dbUser.role === "INTERVIEWEE")
+    if(!dbUser || dbUser.role !== "INTERVIEWEE")
         throw new Error("Only interviewees can book session");
     if(!interviewer || interviewer.role !== "INTERVIEWER")
         throw new Error("Interviewer not Found")

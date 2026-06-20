@@ -8,7 +8,7 @@ import {
   CallingState,
   CallControls,
 } from "@stream-io/video-react-sdk";
-import "@stream-io/video-react-sdk/dist/css/styles.css";
+import "stream-chat-react/dist/css/index.css";
 import {
   Chat,
   Channel,
@@ -17,8 +17,6 @@ import {
   Window,
   useCreateChatClient,
 } from "stream-chat-react";
-
-import "stream-chat-react/dist/css/v2/index.css";
 
 import { Badge } from "@/components/ui/badge";
 import { MessageSquare, Sparkles, Loader2 } from "lucide-react";

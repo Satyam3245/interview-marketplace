@@ -136,8 +136,6 @@ model Feedback {
   createdAt      DateTime       @default(now())
 }
 
-// ─── CREDIT TRANSACTIONS ─────────────────────────────────
-
 model CreditTransaction {
   id        String          @id @default(uuid())
   userId    String
@@ -148,8 +146,6 @@ model CreditTransaction {
   booking   Booking?        @relation(fields: [bookingId], references: [id])
   createdAt DateTime        @default(now())
 }
-
-// ─── PAYOUTS ─────────────────────────────────────────────
 
 model Payout {
   id            String       @id @default(uuid())

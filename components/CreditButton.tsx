@@ -5,7 +5,12 @@ import { Button } from "./ui/button";
 import { Coins } from "lucide-react";
 import UpgradeModel from "./UpgradeModal";
 
-export default function CreditButton(role:string,credits:number){
+interface CreditButtonProps {
+    role: "INTERVIEWER" | string;
+    credits: number;
+}
+
+export default function CreditButton({role,credits}:CreditButtonProps){
     const [open ,setOpen] = useState(false);
 
     const handleClick = ()=>{

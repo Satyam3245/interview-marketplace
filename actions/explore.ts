@@ -11,7 +11,9 @@ export const getInterviewer = async ()=>{
 
     try {
         const interviewers = await prisma.user.findMany({
-            where : {role : "INTERVIEWER"},
+            where : {role : "INTERVIEWER",
+                ...(user && {clerkUserId : {not: user.id}})
+            },
             select : {
                 id : true,
                 name : true,
